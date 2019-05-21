@@ -85,7 +85,14 @@ export class Rendertron {
     if (this.restricted(url)) {
       ctx.status = 403;
       return;
-    }
+      }
+
+      // Azure hack
+      if (url.indexOf('//') == -1) {
+          const idx = url.indexOf(':') + 1;
+          url = url.substr(0, idx) + '/' + url.substr(idx);
+      }
+      // Azure hack
 
     const mobileVersion = 'mobile' in ctx.query ? true : false;
 
